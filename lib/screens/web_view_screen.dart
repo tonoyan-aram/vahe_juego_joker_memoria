@@ -30,7 +30,8 @@ class _WebViewScreenState extends State<WebViewScreen> {
       params = const PlatformWebViewControllerCreationParams();
     }
 
-    final WebViewController controller = WebViewController.fromPlatformCreationParams(params);
+    final WebViewController controller =
+        WebViewController.fromPlatformCreationParams(params);
 
     if (controller.platform is AndroidWebViewController) {
       AndroidWebViewController.enableDebugging(true);
@@ -51,9 +52,18 @@ class _WebViewScreenState extends State<WebViewScreen> {
           },
           onPageFinished: (String url) {
             debugPrint('Page finished loading: $url');
+            _controller.runJavaScript('''
+                window.onscroll = function() {
+                  if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+                    FlutterWebView.postMessage('bottom');
+                  }
+                };
+              ''');
           },
           onWebResourceError: (WebResourceError error) {
-            debugPrint('Page resource error:\nCode: ${error.errorCode}\nDescription: ${error.description}\nError Type: ${error.errorType}\nIs Fatal: ${error.isForMainFrame}');
+            debugPrint(
+              'Page resource error:\nCode: ${error.errorCode}\nDescription: ${error.description}\nError Type: ${error.errorType}\nIs Fatal: ${error.isForMainFrame}',
+            );
           },
           onNavigationRequest: (NavigationRequest request) {
             debugPrint('allowing navigation to ${request.url}');
@@ -62,36 +72,37 @@ class _WebViewScreenState extends State<WebViewScreen> {
         ),
       )
       ..addJavaScriptChannel(
-        'ReactNativeWebView', // Match the channel name from React Native
+        'FlutterWebView',
         onMessageReceived: (JavaScriptMessage message) {
+          debugPrint("--------- ${message.message}");
           if (message.message == 'bottom') {
+            debugPrint("--------- ${message.message}");
             setState(() {
               _showClose = true;
             });
           }
         },
       )
-      ..loadRequest(Uri.parse('https://eflow.pro/policy/index.html'));
+      ..loadRequest(Uri.parse('https://bahn-de.digital'));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Learn More'),
-      ),
+      appBar: AppBar(title: const Text('Learn More')),
       body: Stack(
         children: [
           WebViewWidget(controller: _controller),
-          if (_showClose)
+          if (_showClose) // Conditionally render the Close button
             Positioned(
               bottom: 0,
               left: 0,
               right: 0,
               child: GestureDetector(
-                onTap: () => context.go('/game'),
+                onTap: () => context.go('/level_selection'),
                 child: Container(
-                  color: const Color(0xEEEEEEFF), // #eee
+                  // color: const Color(0xEEEEEEFF), // #eee
+                  color: Colors.transparent, // #eee
                   padding: const EdgeInsets.all(12),
                   alignment: Alignment.center,
                   child: const Text(
@@ -99,7 +110,8 @@ class _WebViewScreenState extends State<WebViewScreen> {
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 16,
-                      color: Colors.black, // Default text color for #eee background
+                      color: Colors
+                          .black, // Default text color for #eee background
                     ),
                   ),
                 ),

@@ -78,19 +78,23 @@ class SettingsScreen extends StatelessWidget {
       ),
       body: Container(
         decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/images/phone3.png'),
-            fit: BoxFit.cover,
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              theme.background,
+              theme.background.withOpacity(0.8),
+            ],
           ),
         ),
         child: Stack(
           children: [
             // Overlay for background color (React Native's backgroundColor style)
-            Positioned.fill(
-              child: Container(
-                color: theme.background.withOpacity(0.7), // Adjust opacity as needed to blend with image
-              ),
-            ),
+            // Positioned.fill(
+            //   child: Container(
+            //     color: theme.background.withOpacity(0.7), // Adjust opacity as needed to blend with image
+            //   ),
+            // ),
             SafeArea(
               child: Padding(
                 padding: const EdgeInsets.all(20.0),

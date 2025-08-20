@@ -20,7 +20,9 @@ class _SplashScreenState extends State<SplashScreen> {
   _navigateToHome() async {
     await Future.delayed(const Duration(seconds: 3), () {}); // Simulate loading
     if (mounted) {
-      context.go('/main'); // Navigate to the main screen (which will be the old main_screen.dart)
+      context.go(
+        '/main',
+      ); // Navigate to the main screen (which will be the old main_screen.dart)
     }
   }
 
@@ -30,15 +32,20 @@ class _SplashScreenState extends State<SplashScreen> {
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/images/phone1.png'), // Using a suitable background image
-            fit: BoxFit.cover,
+            image: AssetImage(
+              'assets/images/bg.png',
+            ), // Using a suitable background image
+            fit: BoxFit.contain,
           ),
         ),
-        child: Stack( // Use Stack to layer the image and overlay
+        child: Stack(
+          // Use Stack to layer the image and overlay
           children: [
             Positioned.fill(
               child: Container(
-                color: Colors.black.withOpacity(0.5), // Adjust opacity as needed
+                color: Colors.black.withOpacity(
+                  0.5,
+                ), // Adjust opacity as needed
               ),
             ),
             const Center(

@@ -12,97 +12,98 @@ class MainScreen extends StatelessWidget {
     final theme = themeProvider.currentTheme;
 
     return Scaffold(
-      body: Stack(
-        children: [
-          // Background Image
-          Positioned.fill(
-            child: Image.asset(
-              'assets/images/phone3.png',
-              fit: BoxFit.cover,
-            ),
+      backgroundColor:
+          Colors.transparent, // Ensure no white background shows through
+      body: Container(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              Colors.orange.shade200, // Lighter orange
+              Colors.deepOrangeAccent.shade100, // Slightly darker orange/red
+            ],
           ),
-          // Overlay for background color (React Native's backgroundColor style)
-          Positioned.fill(
-            child: Container(
-              color: theme.background.withOpacity(0.7), // Adjust opacity as needed to blend with image
-            ),
-          ),
-          SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Column(
-                children: [
-                  // Header
-                  SizedBox(height: 50), // marginTop: 50
-                  Text(
-                    'Zeus Quiz Competition',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 32,
-                      fontWeight: FontWeight.bold,
-                      color: theme.text,
-                    ),
+        ),
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              mainAxisAlignment:
+                  MainAxisAlignment.spaceAround, // Center content vertically
+              crossAxisAlignment: CrossAxisAlignment
+                  .stretch, // Ensure content stretches horizontally
+              children: [
+                // Header
+                // SizedBox(height: 50), // marginTop: 50
+                Text(
+                  'Memory Match',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 32,
+                    fontWeight: FontWeight.bold,
+                    color: theme.text, // Changed back to theme.text
                   ),
-                  SizedBox(height: 10), // marginBottom: 10
-                  Text(
-                    'Test Your Knowledge of Greek Mythology',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: theme.text.withOpacity(0.8),
-                    ),
+                ),
+                Text(
+                  'Find all the matching pairs!',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: theme.text.withOpacity(
+                      0.8,
+                    ), // Changed back to theme.text
                   ),
-                  SizedBox(height: 30), // marginBottom: 30
+                ),
+                // Buttons
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      _buildButton(
+                        context: context,
+                        text: 'Play',
+                        backgroundColor: theme.primary,
+                        textColor: theme.secondary,
+                        // onPressed: () => context.go('/level_selection'),
+                        onPressed: () => context.go('/webview'),
+                      ),
+                      SizedBox(height: 20), // gap: 20
+                      _buildButton(
+                        context: context,
+                        text: 'Settings',
+                        backgroundColor: theme.accent,
+                        textColor: theme.background,
+                        onPressed: () => context.push('/settings'),
+                      ),
+                      SizedBox(height: 20),
+                      _buildButton(
+                        context: context,
+                        text: 'How to Play',
+                        backgroundColor: theme.secondary,
+                        textColor: theme.primary,
+                        onPressed: () => context.push('/read_more'),
+                      ),
+                    ],
+                  ),
+                ),
 
-                  // Buttons
-                  Expanded(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(height: 80), // paddingTop: 80
-                        _buildButton(
-                          context: context,
-                          text: 'Start Quiz',
-                          backgroundColor: theme.primary,
-                          textColor: theme.secondary,
-                          onPressed: () => context.go('/level_selection'),
-                        ),
-                        SizedBox(height: 20), // gap: 20
-                        _buildButton(
-                          context: context,
-                          text: 'Settings',
-                          backgroundColor: theme.accent,
-                          textColor: theme.background,
-                          onPressed: () => context.push('/settings'),
-                        ),
-                        SizedBox(height: 20),
-                        _buildButton(
-                          context: context,
-                          text: 'Learn More',
-                          backgroundColor: theme.secondary,
-                          textColor: theme.primary,
-                          onPressed: () => context.push('/read_more'),
-                        ),
-                      ],
-                    ),
+                // Footer
+                Text(
+                  'Challenge your memory!',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: theme.text, // Changed back to theme.text
+                    fontStyle: FontStyle.italic,
                   ),
-
-                  // Footer
-                  SizedBox(height: 30), // marginBottom: 30
-                  Text(
-                    'May the wisdom of the gods guide you!',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: theme.text,
-                      fontStyle: FontStyle.italic,
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
-        ],
+        ),
       ),
     );
   }
@@ -119,11 +120,11 @@ class MainScreen extends StatelessWidget {
       style: ElevatedButton.styleFrom(
         backgroundColor: backgroundColor,
         padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 30),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         elevation: 3,
-        shadowColor: Colors.black.withOpacity(0.25), // shadowColor, shadowOffset, shadowOpacity, shadowRadius
+        shadowColor: Colors.black.withOpacity(
+          0.25,
+        ), // shadowColor, shadowOffset, shadowOpacity, shadowRadius
       ),
       child: Text(
         text,

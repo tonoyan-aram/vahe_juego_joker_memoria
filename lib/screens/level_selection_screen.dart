@@ -4,17 +4,19 @@ import 'package:go_router/go_router.dart';
 class LevelSelectionScreen extends StatelessWidget {
   const LevelSelectionScreen({super.key});
 
-  final List<Map<String, String>> levels = const [
-    {"name": "Level 1", "image": "assets/images/Aphrodite.png"},
-    {"name": "Level 2", "image": "assets/images/Apollo.png"},
-    {"name": "Level 3", "image": "assets/images/Ares.png"},
-    {"name": "Level 4", "image": "assets/images/Artemis.png"},
-    {"name": "Level 5", "image": "assets/images/Athena.png"},
-    {"name": "Level 6", "image": "assets/images/Demeter.png"},
-    {"name": "Level 7", "image": "assets/images/Dionysus.png"},
-    {"name": "Level 8", "image": "assets/images/Hephaestus.png"},
-    {"name": "Level 9", "image": "assets/images/Hera.png"},
-    {"name": "Level 10", "image": "assets/images/Hermes.png"},
+  final List<Map<String, dynamic>> levels = const [
+    {"name": "Level 1"},
+    {"name": "Level 2"},
+    {"name": "Level 3"},
+    {"name": "Level 4"},
+    {"name": "Level 5"},
+    {"name": "Level 6"},
+    {"name": "Level 7"},
+    {"name": "Level 8"},
+    {"name": "Level 9"},
+    {"name": "Level 10"},
+    {"name": "Level 11"},
+    {"name": "Level 12"},
   ];
 
   @override
@@ -44,26 +46,40 @@ class LevelSelectionScreen extends StatelessWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.0),
               ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Expanded(
-                    child: Image.asset(
-                      level['image']!,
-                      fit: BoxFit.contain,
-                    ),
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10.0),
+                  gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [
+                      Colors.blueGrey.shade700, // Static start color
+                      Colors.blueGrey.shade900, // Static end color
+                    ],
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      level['name']!,
-                      style: const TextStyle(
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.bold,
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: Image.asset(
+                        'assets/images/bg.png',
+                        fit: BoxFit.contain, // Adjust fit as needed
                       ),
                     ),
-                  ),
-                ],
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        level['name']!,
+                        style: const TextStyle(
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           );

@@ -152,8 +152,7 @@ class _GameScreenState extends State<GameScreen> {
   }
 
   void _handleBackToLevelSelection() {
-    context
-        .pop(); // Use pop to go back to the previous screen (LevelSelectionScreen)
+    context.go('/level_selection'); // Navigate back to the LevelSelectionScreen
   }
 
   @override
@@ -165,11 +164,13 @@ class _GameScreenState extends State<GameScreen> {
       return Scaffold(
         body: Container(
           decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage(
-                'assets/images/phone1.png',
-              ), // You might want a fixed background for result screen or choose one dynamically
-              fit: BoxFit.cover,
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                Colors.lightGreen.shade200, // Lighter vibrant green
+                Colors.teal.shade400, // Deeper vibrant teal
+              ],
             ),
           ),
           child: Center(
@@ -267,11 +268,13 @@ class _GameScreenState extends State<GameScreen> {
       ),
       body: Container(
         decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage(
-              'assets/images/phone1.png',
-            ), // Using a generic background
-            fit: BoxFit.cover,
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              Colors.lightGreen, // Start color for the main game screen
+              Colors.tealAccent, // End color for the main game screen
+            ],
           ),
         ),
         child: Column(

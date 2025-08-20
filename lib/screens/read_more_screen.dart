@@ -13,7 +13,7 @@ class ReadMoreScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Learn More About Greek Gods'),
+        title: const Text('How to Play Memory Match'),
         backgroundColor: theme.primary,
         foregroundColor: theme.secondary,
         leading: IconButton(
@@ -25,11 +25,19 @@ class ReadMoreScreen extends StatelessWidget {
       ),
       body: Container(
         decoration: BoxDecoration(
-          image: const DecorationImage(
-            image: AssetImage('assets/images/phone2.png'), // Use a suitable background image
-            fit: BoxFit.cover,
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              theme.background,
+              theme.background.withOpacity(0.8),
+            ],
           ),
-          color: theme.background.withOpacity(0.7),
+          // image: const DecorationImage(
+          //   image: AssetImage('assets/images/cr1.png'), // Use a suitable background image
+          //   fit: BoxFit.cover,
+          // ),
+          // color: theme.background.withOpacity(0.7),
         ),
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(20.0),
@@ -37,7 +45,7 @@ class ReadMoreScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'The Pantheon of Olympus',
+                'Game Rules',
                 style: TextStyle(
                   fontSize: 28,
                   fontWeight: FontWeight.bold,
@@ -45,27 +53,12 @@ class ReadMoreScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 20),
-              Text(
-                'Ancient Greek mythology is a vast and fascinating collection of myths and legends belonging to the ancient Greeks concerning their gods and heroes, the nature of the world, and the origins and significance of their own cult and ritual practices. It was a part of the religion in ancient Greece.',
-                style: TextStyle(
-                  fontSize: 16,
-                  color: theme.text.withOpacity(0.9),
-                ),
-              ),
-              const SizedBox(height: 30),
-              _buildGodSection(theme, 'Zeus', 'King of the Gods, ruler of Mount Olympus, and god of the sky, lightning, thunder, law, order, and justice.', 'assets/images/Zeus.png'),
-              _buildGodSection(theme, 'Hera', 'Queen of the Gods and the goddess of marriage, women, childbirth, and family. She is Zeus\'s wife and sister.', 'assets/images/Hera.png'),
-              _buildGodSection(theme, 'Poseidon', 'God of the sea, earthquakes, storms, and horses. He is a brother of Zeus.', 'assets/images/Poseidon.png'),
-              _buildGodSection(theme, 'Demeter', 'Goddess of the harvest, agriculture, fertility, and sacred law. She is a sister of Zeus.', 'assets/images/Demeter.png'),
-              _buildGodSection(theme, 'Athena', 'Goddess of wisdom, handicraft, and warfare. She was born from Zeus\'s head.', 'assets/images/Athena.png'),
-              _buildGodSection(theme, 'Apollo', 'God of music, poetry, art, oracles, archery, plague, medicine, sun, light, and knowledge. He is the twin brother of Artemis.', 'assets/images/Apollo.png'),
-              _buildGodSection(theme, 'Artemis', 'Goddess of the hunt, wilderness, wild animals, the Moon, and chastity. She is the twin sister of Apollo.', 'assets/images/Artemis.png'),
-              _buildGodSection(theme, 'Ares', 'God of war. He is the son of Zeus and Hera.', 'assets/images/Ares.png'),
-              _buildGodSection(theme, 'Aphrodite', 'Goddess of love, beauty, pleasure, and procreation. She was born from the sea foam.', 'assets/images/Aphrodite.png'),
-              _buildGodSection(theme, 'Hephaestus', 'God of blacksmiths, craftsmen, artisans, sculptors, metals, metallurgy, fire, and volcanoes. He is the son of Hera.', 'assets/images/Hephaestus.png'),
-              _buildGodSection(theme, 'Dionysus', 'God of wine, fertility, revelry, and ecstasy. He is the youngest of the Olympian gods.', 'assets/images/Dionysus.png'),
-              _buildGodSection(theme, 'Hermes', 'Messenger of the gods; god of trade, thieves, travelers, sports, athletes, and border crossings. He is the son of Zeus.', 'assets/images/Hermes.png'),
-              _buildGodSection(theme, 'Persephone', 'Goddess of spring and queen of the underworld. She is the daughter of Demeter and Zeus.', 'assets/images/Persephone.png'),
+              _buildRuleSection(theme, 'Goal', 'The goal of Memory Match is to find all matching pairs of cards on the board.'),
+              _buildRuleSection(theme, 'How to Play', 'Tap on any card to flip it over and reveal the image on its face. Then, tap on a second card to flip it over as well.'),
+              _buildRuleSection(theme, 'Matching Pairs', 'If the two cards you flipped have the same image, they form a matching pair! These cards will stay face-up and are removed from play.'),
+              _buildRuleSection(theme, 'No Match', 'If the two cards do not match, they will automatically flip back over after a short delay. Try to remember their positions for future turns!'),
+              _buildRuleSection(theme, 'Turns and Moves', 'Each time you flip two cards (whether they match or not) counts as one move. Try to find all pairs in the fewest moves possible!'),
+              _buildRuleSection(theme, 'Winning', 'The game ends when all pairs have been found. Your score is based on the number of moves you took. Good luck!'),
             ],
           ),
         ),
@@ -73,35 +66,26 @@ class ReadMoreScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildGodSection(AppTheme theme, String name, String description, String imagePath) {
+  Widget _buildRuleSection(AppTheme theme, String title, String description) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 20.0),
-      child: Row(
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Image.asset(imagePath, width: 80, height: 80, fit: BoxFit.contain),
-          const SizedBox(width: 15),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  name,
-                  style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                    color: theme.primary,
-                  ),
-                ),
-                const SizedBox(height: 5),
-                Text(
-                  description,
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: theme.text.withOpacity(0.8),
-                  ),
-                ),
-              ],
+          Text(
+            title,
+            style: TextStyle(
+              fontSize: 22,
+              fontWeight: FontWeight.bold,
+              color: theme.primary,
+            ),
+          ),
+          const SizedBox(height: 5),
+          Text(
+            description,
+            style: TextStyle(
+              fontSize: 16,
+              color: theme.text.withOpacity(0.9),
             ),
           ),
         ],
