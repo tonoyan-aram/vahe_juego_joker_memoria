@@ -61,7 +61,7 @@ class MyApp extends StatelessWidget {
     );
 
     return MaterialApp.router(
-      title: 'Zeus Quiz',
+      title: 'Juego Joker Memoria',
       debugShowCheckedModeBanner: false, // Remove the debug banner
       theme: ThemeData(
         primaryColor: themeProvider.currentTheme.primary,
